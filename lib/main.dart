@@ -1,5 +1,5 @@
 import 'package:firebase_quizapp/routes.dart';
-import 'package:firebase_quizapp/themes.dart';
+import 'package:firebase_quizapp/theme.dart';
 import 'package:flutter/material.dart';
 
 // Import the firebase_core plugin
@@ -17,7 +17,6 @@ void main() {
 /// which is undesired.
 class App extends StatefulWidget {
   const App({super.key});
-
   @override
   State<App> createState() => _AppState();
 }
@@ -37,12 +36,11 @@ class _AppState extends State<App> {
         if (snapshot.hasError) {
           return Text('error');
         }
-
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
-            theme: appTheme,
             routes: appRoutes,
+            theme: appTheme,
           );
         }
 

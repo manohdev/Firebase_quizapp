@@ -1,25 +1,24 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:firebase_quizapp/login/loginbutton.dart';
-import 'package:firebase_quizapp/login/signup.dart';
 import 'package:firebase_quizapp/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class  LoginScreen extends StatefulWidget {
-  final VoidCallback showSignupScreen;
-  LoginScreen({ Key? key, required this.showSignupScreen }) : super(key: key);
+class SignupScreen extends StatefulWidget {
+  final VoidCallback showLoginScreen;
+  SignupScreen ({super.key, required this.showLoginScreen});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController emailController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
 
-  void loginUser() async {
-    AuthService().emailLogin(
+  void signUpUser() async {
+    AuthService().emailSignup(
       email: emailController.text,
       password: passwordController.text
     );
@@ -38,9 +37,9 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               const FlutterLogo(size:100),
-              SizedBox(height: 50,),
-              Text('Login', style: Theme.of(context).textTheme.headline1),
-              Text('Please login to your existing account to continue'),
+              const SizedBox(height: 50,),
+              Text('Sign up', style: Theme.of(context).textTheme.headline1),
+              const Text('Please sign up and create account to continue'),
               Form(
                 key: formKey,
                 child: Column(
@@ -73,30 +72,29 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 30,),
                     ElevatedButton(
                       onPressed: () {
-                        loginUser();
+                        signUpUser();
                         final isValidForm = formKey.currentState!.validate();
                         if (isValidForm){
-                          Navigator.pushNamed(context, '/topics')
-;
+                          Navigator.pushNamed(context, '/login');
                         }
                       }, 
-                      child: const Text('Login')
+                      child: const Text('Sign up')
                     )
                   ],
                 ),
               ),
-              SizedBox(height: 40,),
+              const SizedBox(height: 40,),
+              
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   GestureDetector(
-                    onTap: widget.showSignupScreen,
-                    child: const Text('New user? Sign up', style: TextStyle(color: Colors.white))
-                    
+                    onTap: widget.showLoginScreen,
+                    child: const Text('Have account? Login')
                   ),
                   LoginButton(
                     icon: FontAwesomeIcons.google,
-                    text: 'Login with google',
+                    text: 'Signup with google',
                     loginmethod: AuthService().googleLogin,
                     color: Colors.deepPurple,
                   ),
@@ -106,6 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     text: 'Continue as guest',
                     loginmethod: AuthService().anonLogin,
                     color: Colors.deepPurple,
+                    
                   ),
                 ],
               ),
@@ -117,3 +116,4 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
+/////
