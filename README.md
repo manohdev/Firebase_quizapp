@@ -1,16 +1,13 @@
 # firebase_quizapp
 
-A new Flutter project.
+An app that lets you take multiple quizzes according to your choice and let you see your scores.
 
 ## Getting Started
+I have used Firebase(cloud firestore) as noSQL database
+we store the following items in cloud: 
+users, quiz topics, quiz questions, quiz scores, user id for every login
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Login/Signup methnods
+simple click sign up and login with google
+anonymous login without any id
+email and password sign up and login
