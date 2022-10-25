@@ -3,11 +3,13 @@ import 'package:firebase_quizapp/services/models.dart';
 import 'package:firebase_quizapp/shared/bottom_nav.dart';
 import 'package:firebase_quizapp/shared/error.dart';
 import 'package:firebase_quizapp/shared/loading.dart';
+import 'package:firebase_quizapp/topics/drawer.dart';
+import 'package:firebase_quizapp/topics/topic_item.dart';
 import 'package:flutter/material.dart';
 
 class  TopicsScreen extends StatelessWidget {
   const TopicsScreen ({ Key? key }) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Topic>>(
@@ -22,6 +24,7 @@ class  TopicsScreen extends StatelessWidget {
           var topics = snapshot.data!;
 
           return Scaffold(
+            drawer: TopicsDrawer(topics: topics),
             appBar: AppBar(
               backgroundColor: Colors.deepPurple,
               title: const Text('Topics'),
@@ -31,7 +34,7 @@ class  TopicsScreen extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               crossAxisSpacing: 10.0,
               crossAxisCount: 2,
-              children: topics.map((topic)=> Text(topic.title)).toList(),
+              children: topics.map((topic)=> TopicItem(topic: topic)).toList(),
             ),
 
             bottomNavigationBar: const BottomNavBar()

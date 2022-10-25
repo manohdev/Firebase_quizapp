@@ -1,5 +1,2 @@
-everything is done but i have to get to home class after doing login 
 
-when we do annon login in login page it will happen but you have to press back
-because of stack
 
