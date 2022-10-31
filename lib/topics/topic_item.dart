@@ -1,3 +1,4 @@
+import 'package:firebase_quizapp/shared/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_quizapp/services/models.dart';
 
@@ -38,6 +39,9 @@ class TopicItem extends StatelessWidget {
                     softWrap: false,
                   )
                 ),
+              ),
+              Flexible(
+              child: TopicProgress(topic: topic)
               )
             ],
           )
