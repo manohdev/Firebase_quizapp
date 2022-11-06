@@ -1,2 +1,3 @@
-
+when app in opened , you will see one error screen for few secs 
+there's something wrong with login page
 

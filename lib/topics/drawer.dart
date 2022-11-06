@@ -1,3 +1,4 @@
+import 'package:firebase_quizapp/quiz/quiz.dart';
 import 'package:firebase_quizapp/services/models.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -52,7 +53,10 @@ class QuizList extends StatelessWidget {
             margin: const EdgeInsets.all(4),
             elevation: 4,
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=> QuizScreen(quizId: quiz.id)));
+
+              },
               child: Container(
                 padding: const EdgeInsets.all(8),
                 child: ListTile(
