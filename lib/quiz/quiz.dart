@@ -124,6 +124,53 @@ class QuestionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    var state = Provider.of<QuizState>(context);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(15),
+            alignment: Alignment.center,
+            child: Text(question.text),
+          )
+        ),
+        Container(
+          padding: EdgeInsets.all(30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: question.options.map(
+              (opt) {
+                return Container(
+                  height: 100,
+                  margin: const EdgeInsets.only(bottom:10),
+                  color: Colors.black26,
+                  child: InkWell(
+                    onTap: () {
+                      state.selected = opt;
+                      // _bottomshe
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(15),
+                      child: Row(
+                        children: [
+                          Icon(state.selected == opt ? Icons.flag : Icons.circle),
+                          Expanded(
+                            child: Container(
+                              margin: EdgeInsets.only(left: 15),
+                              child: Text(opt.value, style: Theme.of(context).textTheme.bodyText2,)),
+                          )
+
+                        ],
+                      ),
+                    )
+                  ),
+                );
+              }
+            ).toList(),
+          ),
+        )
+      ]
+    );
   }
 }
