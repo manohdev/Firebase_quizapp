@@ -5,12 +5,13 @@ import 'package:provider/provider.dart';
 class AnimatedProgressbar extends StatelessWidget {
   final double value;
   final double height;
-  const AnimatedProgressbar({super.key, required this.value, this.height=10});
+
+  const AnimatedProgressbar({super.key, required this.value, this.height = 12});
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints box){
+      builder: (BuildContext context, BoxConstraints box) {
         return Container(
           padding: const EdgeInsets.all(10),
           width: box.maxWidth,
@@ -20,42 +21,44 @@ class AnimatedProgressbar extends StatelessWidget {
                 height: height,
                 decoration: BoxDecoration(
                   color: Theme.of(context).backgroundColor,
-                  borderRadius: BorderRadius.all(Radius.circular(height))
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(height),
+                  ),
                 ),
               ),
               AnimatedContainer(
                 duration: const Duration(milliseconds: 800),
                 curve: Curves.easeOutCubic,
                 height: height,
-                width: box.maxWidth * _floor(value) ,
+                width: box.maxWidth * _floor(value),
                 decoration: BoxDecoration(
                   color: _colorGen(value),
-                  borderRadius: BorderRadius.all(Radius.circular(height))
-                )
-              )
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(height),),
+                ),
+              ),
             ],
-          )
-
+          ),
         );
       },
     );
   }
 
-  // round up negative or nans to min value i.e 0
+  /// Always round negative or NaNs to min value
   _floor(double value, [min = 0.0]) {
     return value.sign <= min ? min : value;
   }
 
   _colorGen(double value) {
-    int rgb = (value * 255).toInt();
-    return Colors.deepOrange.withGreen(rgb).withRed(255-rgb);
+    int rbg = (value * 255).toInt();
+    return Colors.deepOrange.withGreen(rbg).withRed(255 - rbg);
   }
-
 }
 
 class TopicProgress extends StatelessWidget {
-  final Topic topic;
   const TopicProgress({super.key, required this.topic});
+
+  final Topic topic;
 
   @override
   Widget build(BuildContext context) {
@@ -65,23 +68,22 @@ class TopicProgress extends StatelessWidget {
         _progressCount(report, topic),
         Expanded(
           child: AnimatedProgressbar(
-            value: _calculateProgress(topic,report),height:8
-          ) 
-        )
-          
-        
-      ]
+              value: _calculateProgress(topic, report), height: 8),
+        ),
+      ],
     );
   }
+
   Widget _progressCount(Report report, Topic topic) {
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.only(left: 8),
       child: Text(
         '${report.topics[topic.id]?.length ?? 0} / ${topic.quizzes.length}',
-        style: const TextStyle(fontSize: 10, color: Colors.grey)
+        style: const TextStyle(fontSize: 10, color: Colors.grey),
       ),
     );
   }
+
   double _calculateProgress(Topic topic, Report report) {
     try {
       int totalQuizzes = topic.quizzes.length;
@@ -89,9 +91,5 @@ class TopicProgress extends StatelessWidget {
       return completedQuizzes / totalQuizzes;
     } catch (err) {
       return 0.0;
-    }
-  }
-
-
-
+    }}
 }

@@ -3,7 +3,6 @@ import 'package:firebase_quizapp/services/firestore.dart';
 import 'package:firebase_quizapp/services/models.dart';
 import 'package:firebase_quizapp/shared/loading.dart';
 import 'package:firebase_quizapp/shared/progress_bar.dart';
-import 'package:firebase_quizapp/topics/topics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +19,7 @@ class QuizScreen extends StatelessWidget {
         builder: (context, snapshot) {
           var state = Provider.of<QuizState>(context);
           if (!snapshot.hasData || snapshot.hasError) {
-            return Loader();
+            return const Loader();
           } else {
             var quiz = snapshot.data!;
             return Scaffold(
@@ -28,7 +27,7 @@ class QuizScreen extends StatelessWidget {
                 title: AnimatedProgressbar(value: state.progress),
                 leading: IconButton(
                   onPressed: ()=> Navigator.pop(context), 
-                  icon: Icon(Icons.clear,)
+                  icon: const Icon(Icons.clear,)
                 ),
               ),
               body: PageView.builder(
@@ -148,13 +147,13 @@ class QuestionPage extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       state.selected = opt;
-                      // _bottomshe
+                      _bottomSheet(context, opt, state);
                     },
                     child: Container(
                       padding: const EdgeInsets.all(15),
                       child: Row(
                         children: [
-                          Icon(state.selected == opt ? Icons.flag : Icons.circle),
+                          Icon(state.selected == opt ? Icons.done_outline : Icons.circle),
                           Expanded(
                             child: Container(
                               margin: EdgeInsets.only(left: 15),
@@ -171,6 +170,50 @@ class QuestionPage extends StatelessWidget {
           ),
         )
       ]
+    );
+  }
+  _bottomSheet(BuildContext context, Option opt, QuizState state) {
+    bool correct = opt.correct;
+
+    showModalBottomSheet(
+      context: context,
+      builder:  (BuildContext context) {
+        return Container(
+          height: 250,
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                opt.detail,
+                style: const TextStyle(fontSize: 18, color: Colors.white54)
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  if (correct) {
+                    state.nextPage();
+                  }
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: correct ? Colors.green : Colors.red
+                ),
+                child: Text(
+                  correct ? 'Next' : 'Try again',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    letterSpacing: 1.5,
+                    fontWeight: FontWeight.bold
+                  )
+                ),
+              ),
+              
+            ],
+          ),
+        );
+      }
+
     );
   }
 }
