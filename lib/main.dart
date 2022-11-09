@@ -4,12 +4,13 @@ import 'package:firebase_quizapp/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_quizapp/services/models.dart';
-
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 // Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(App());
 }
 
@@ -28,7 +29,16 @@ class _AppState extends State<App> {
   /// The future is part of the state of our widget. We should not call `initializeApp`
   /// directly inside [build].
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  @override
+  void initState() {
+    super.initState();
 
+    /// whenever your initialization is completed, remove the splash screen:
+    Future.delayed(Duration(seconds: 3)).then((value) => {
+      FlutterNativeSplash.remove()
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(

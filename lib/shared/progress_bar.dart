@@ -79,7 +79,7 @@ class TopicProgress extends StatelessWidget {
       padding: const EdgeInsets.only(left: 8),
       child: Text(
         '${report.topics[topic.id]?.length ?? 0} / ${topic.quizzes.length}',
-        style: const TextStyle(fontSize: 10, color: Colors.grey),
+        style: const TextStyle(fontSize: 10, color: Colors.white70,fontWeight: FontWeight.bold),
       ),
     );
   }

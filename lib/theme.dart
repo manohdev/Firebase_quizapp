@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-var appTheme = ThemeData(
-
+var appTheme = ThemeData( 
+  backgroundColor: Color.fromARGB(255, 76, 1, 110),
   fontFamily: 'Nunito',
   brightness: Brightness.dark,
   buttonTheme: const ButtonThemeData(),

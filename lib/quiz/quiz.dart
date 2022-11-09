@@ -24,26 +24,36 @@ class QuizScreen extends StatelessWidget {
             var quiz = snapshot.data!;
             return Scaffold(
               appBar: AppBar(
+                backgroundColor: Colors.deepPurple,
                 title: AnimatedProgressbar(value: state.progress),
                 leading: IconButton(
                   onPressed: ()=> Navigator.pop(context), 
                   icon: const Icon(Icons.clear,)
                 ),
               ),
-              body: PageView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                controller: state.controller,
-                onPageChanged: (int idx) => state.progress =(idx/ (quiz.questions.length)+1),
-                itemBuilder: (BuildContext context, int idx) {
-                  if (idx == 0) {
-                    return StartPage(quiz: quiz);
-                  } else if (idx == quiz.questions.length +1){
-                    return CongratsPage(quiz:quiz);
-                  } else {
-                    return QuestionPage(question: quiz.questions[idx -1]);
+              body: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.deepPurple, Color.fromARGB(255, 148, 35, 72)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter
+                    )
+                  ),
+                child: PageView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  controller: state.controller,
+                  onPageChanged: (int idx) => state.progress =(idx/ (quiz.questions.length)+1),
+                  itemBuilder: (BuildContext context, int idx) {
+                    if (idx == 0) {
+                      return StartPage(quiz: quiz);
+                    } else if (idx == quiz.questions.length +1){
+                      return CongratsPage(quiz:quiz);
+                    } else {
+                      return QuestionPage(question: quiz.questions[idx -1]);
+                    }
                   }
-                }
+                ),
               ),
             );
           }
@@ -179,6 +189,13 @@ class QuestionPage extends StatelessWidget {
       context: context,
       builder:  (BuildContext context) {
         return Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.deepPurple, Color.fromARGB(255, 148, 35, 72)],
+              begin: Alignment.bottomCenter,
+              end:  Alignment.topCenter
+              )
+            ),
           height: 250,
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -186,8 +203,8 @@ class QuestionPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                opt.detail,
-                style: const TextStyle(fontSize: 18, color: Colors.white54)
+                opt.detail == '' ? 'That was wrong': opt.detail ,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white,)
               ),
               ElevatedButton(
                 onPressed: () {
@@ -197,7 +214,7 @@ class QuestionPage extends StatelessWidget {
                   Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: correct ? Colors.green : Colors.red
+                  backgroundColor: correct ? Color.fromARGB(255, 91, 55, 189) : Color.fromARGB(255, 255, 0, 0)
                 ),
                 child: Text(
                   correct ? 'Next' : 'Try again',

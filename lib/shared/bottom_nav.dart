@@ -8,6 +8,7 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      backgroundColor: Color.fromARGB(255, 102, 62, 62),
       items: const[
         BottomNavigationBarItem(
           icon: Icon(FontAwesomeIcons.graduationCap, size: 20,),
@@ -22,7 +23,7 @@ class BottomNavBar extends StatelessWidget {
           label: 'Profile'
         )
       ],
-      fixedColor: Colors.deepPurple,
+      fixedColor: Colors.amber,
       onTap: (int idx) {
         switch (idx) {
           case 0: break;

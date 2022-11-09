@@ -1,5 +1,5 @@
-when app in opened , you will see one error screen for few secs 
-there's something wrong with login page
+when app in opened , you will see one error screen for few secs - solved
+need to check if email already exists in firebase auth before login - fix
 
 update this quiz app to trends that makes facts/history to make it interesting
 

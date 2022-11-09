@@ -5,10 +5,14 @@ class Loader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
-      width: 250,
-      height: 250,
-      child: CircularProgressIndicator(),
+    return SizedBox(
+      width: 50,
+      height: 50,
+      child: Container(
+        color: Color.fromARGB(255, 192, 66, 66),
+        child: Image(image: AssetImage("assets/applogo.png"),),
+
+      )
     );
   }
 }
@@ -18,9 +22,11 @@ class LoadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Loader(),
+        child: Container(
+          child: Image(image: AssetImage("assets/applogo.png"),)
+        )
       )
     );
   }

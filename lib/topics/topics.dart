@@ -3,6 +3,7 @@ import 'package:firebase_quizapp/services/models.dart';
 import 'package:firebase_quizapp/shared/bottom_nav.dart';
 import 'package:firebase_quizapp/shared/error.dart';
 import 'package:firebase_quizapp/shared/loading.dart';
+import 'package:firebase_quizapp/theme.dart';
 import 'package:firebase_quizapp/topics/drawer.dart';
 import 'package:firebase_quizapp/topics/topic_item.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class  TopicsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Topic>>(
+      
       future: FirestoreService().getTopics(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -24,17 +26,31 @@ class  TopicsScreen extends StatelessWidget {
           var topics = snapshot.data!;
 
           return Scaffold(
+            
+            
             drawer: TopicsDrawer(topics: topics),
             appBar: AppBar(
+              elevation: 50,
               backgroundColor: Colors.deepPurple,
               title: const Text('Topics'),
             ),
-            body: GridView.count(
-              primary: false,
-              padding: const EdgeInsets.all(20.0),
-              crossAxisSpacing: 10.0,
-              crossAxisCount: 2,
-              children: topics.map((topic)=> TopicItem(topic: topic)).toList(),
+            body: Container(
+              decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.deepPurple, Color.fromARGB(255, 148, 35, 72)],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter
+                )
+              ),
+
+              child: GridView.count(
+                primary: false,
+                padding: const EdgeInsets.all(15.0),
+                crossAxisSpacing: 15.0,
+                mainAxisSpacing: 15.0,
+                crossAxisCount: 2,
+                children: topics.map((topic)=> TopicItem(topic: topic)).toList(),
+              ),
             ),
 
             bottomNavigationBar: const BottomNavBar()

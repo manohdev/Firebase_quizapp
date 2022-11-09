@@ -10,30 +10,39 @@ class TopicsDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView.separated(
-        shrinkWrap: true,
-        itemCount: topics.length,
-        separatorBuilder: (BuildContext context, int idx) => const Divider(),
-        itemBuilder: (BuildContext context, int idx) {
-          Topic topic = topics[idx];
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 10, left: 10),
-                child: Text(
-                  topic.title,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color:Colors.white
+      child: Container(
+        decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.deepPurple, Color.fromARGB(255, 148, 35, 72)],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter
+          )
+        ),
+        child: ListView.separated(
+          shrinkWrap: true,
+          itemCount: topics.length,
+          separatorBuilder: (BuildContext context, int idx) => const Divider(),
+          itemBuilder: (BuildContext context, int idx) {
+            Topic topic = topics[idx];
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 10),
+                  child: Text(
+                    topic.title,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color:Colors.white
+                    ),
                   ),
                 ),
-              ),
-              QuizList(topic: topic)
-            ],
-          );
-        }
+                QuizList(topic: topic)
+              ],
+            );
+          }
+        ),
       ),
     );
   }
@@ -49,8 +58,9 @@ class QuizList extends StatelessWidget {
       children: topic.quizzes.map(
         (quiz) {
           return Card(
-            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-            margin: const EdgeInsets.all(4),
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
+            margin: const EdgeInsets.all(10),
+            color: Color.fromARGB(255, 102, 62, 62),
             elevation: 4,
             child: InkWell(
               onTap: () {
@@ -59,6 +69,7 @@ class QuizList extends StatelessWidget {
               },
               child: Container(
                 padding: const EdgeInsets.all(8),
+                
                 child: ListTile(
                   leading: QuizBadge(quizId: quiz.id, topic: topic),
                   title: Text(

@@ -27,17 +27,37 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final formKey = GlobalKey<FormState>();
 
+  // email validator 
+  String validateEmail(String? x) {
+    String pattern =
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+        r"{0,253}[a-zA-Z0-9])?)*$";
+    RegExp regex = RegExp(pattern);
+    if (x == null || x.isEmpty || !regex.hasMatch(x))
+      return 'invalid';
+    else
+      return 'valid';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
+          decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.deepPurple, Color.fromARGB(255, 148, 35, 72)],
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter
+            )
+          ),
           padding: const EdgeInsets.all(30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const FlutterLogo(size:100),
+              Image.asset('assets/applogo.png',height: 170,),
               SizedBox(height: 50,),
               Text('Login', style: Theme.of(context).textTheme.headline1),
               Text('Please login to your existing account to continue'),
@@ -51,20 +71,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextFormField(
                       decoration: InputDecoration(hintText: 'Email'),
                       controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
                       validator: (value) {
-                        if(value == null || value.isEmpty){
-                          return 'Please enter email!';
+                        if(value == null || value.isEmpty || validateEmail(value) == 'invalid'){
+                          return 'Please enter valid email!';
                         }
                         return null;
                       },
-                      
+
                     ),
                     TextFormField(
                       obscureText: true,
                       decoration: const InputDecoration(hintText: 'Password'),
                       controller: passwordController,
                       validator: (value) {
-                        if(value == null || value.isEmpty){
+                        if(value == null || value.isEmpty || value.length < 8){
                           return 'Please enter password!';
                         }
                         return null;
