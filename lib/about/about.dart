@@ -49,7 +49,7 @@ class _AboutScreenState extends State<AboutScreen> {
                   child: ElevatedButton.icon(
                     
                     onPressed: () {
-                      _launchURL("https://github.com/Manohar29m29/Firebase_quizapp");
+                      _launchURL("github.com/Manohar29m29/Firebase_quizapp");
                     }, 
                     icon: Icon(Icons.code_sharp), 
                     label: Text('Source code')),

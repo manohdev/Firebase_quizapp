@@ -203,7 +203,7 @@ class QuestionPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                opt.detail == '' ? 'That was wrong': opt.detail ,
+                opt.detail,
                 style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white,)
               ),
               ElevatedButton(
